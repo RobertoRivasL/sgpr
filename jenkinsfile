@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+
+    tools {
+        // Indica el nombre de la instalación de JDK y Maven configurada en Jenkins
+        jdk 'JDK 17'
+        maven 'Maven 3.9.8'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    echo "Compilando el proyecto con Java 17 y Maven 3.9.8..."
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    echo "Ejecutando pruebas unitarias con JUnit 4.13.2 y Mockito 4.6.1..."
+                    sh 'mvn test'
+                }
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    echo "Desplegando la aplicación..."
+                    sh 'mvn deploy'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'target/site/**/*.html', allowEmptyArchive: true
+        }
+        failure {
+            mail to: 'dev-team@example.com',
+                    subject: "Error en el pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Hubo un error en el pipeline. Por favor, revisa los logs en ${env.BUILD_URL}"
+        }
+        success {
+            mail to: 'dev-team@example.com',
+                    subject: "Pipeline completado: ${currentBuild.fullDisplayName}",
+                    body: "El pipeline completó exitosamente. Revisa los artefactos en ${env.BUILD_URL}"
+        }
+    }
+}

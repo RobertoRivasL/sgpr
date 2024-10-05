@@ -1,20 +1,43 @@
+/**
+ * Clase que representa un accidente.
+ * Contiene detalles sobre el accidente, como identificador, RUT del cliente, fecha, hora, lugar, origen y consecuencias.
+ *
+ * @version 2.0
+ * @author Roberto Rivas
+ * @author Billy Alvarez
+ * @author Roberto Orellana
+ * @author Nicolas Massot
+ */
 public class Accidente {
 
-    //Atributos
+    // Atributos
+    private int idAcc; // Identificador del accidente
+    private int rutCliente; // RUT del cliente
+    private String dia; // Día del accidente
+    private String hora; // Hora del accidente
+    private String lugar; // Lugar del accidente
+    private String origen; // Origen del accidente
+    private String consecuencias; // Consecuencias del accidente
 
-    private int idAcc; //Identificador cccidente
-    private int rutCliente; //Rut cliente
-    private String dia; //Día accidente
-    private String hora; //Hora accidente
-    private String lugar; //Lugar accidente
-    private String origen; //Origen accidente
-    private String consecuencias; //Consecuencias accidente
+    // Constructores
 
-    //Constructores
-
+    /**
+     * Constructor por defecto.
+     */
     public Accidente() {
     }
 
+    /**
+     * Constructor con todos los atributos del accidente.
+     *
+     * @param idAcc Identificador del accidente
+     * @param rutCliente RUT del cliente
+     * @param dia Día del accidente
+     * @param hora Hora del accidente
+     * @param lugar Lugar del accidente
+     * @param origen Origen del accidente
+     * @param consecuencias Consecuencias del accidente
+     */
     public Accidente(int idAcc, int rutCliente, String dia, String hora, String lugar, String origen, String consecuencias) {
         this.idAcc = idAcc;
         this.rutCliente = rutCliente;
@@ -25,7 +48,7 @@ public class Accidente {
         this.consecuencias = consecuencias;
     }
 
-    //Métodos Getters y Setters: se proporcionan los métodos getter y setter para acceder y modificar los atributos de la clase Accidente.
+    // Métodos Getters y Setters
 
     public int getIdAcc() {
         return idAcc;
@@ -83,17 +106,28 @@ public class Accidente {
         this.consecuencias = consecuencias;
     }
 
-    //Muestra los datos de la clase
-
+    /**
+     * Muestra los datos del accidente en formato de cadena.
+     *
+     * @return Cadena con los datos del accidente.
+     */
     @Override
     public String toString() {
         return "Accidente{" +
                 "idAcc=" + idAcc +
+                ", rutCliente=" + rutCliente +
                 ", dia='" + dia + '\'' +
                 ", hora='" + hora + '\'' +
                 ", lugar='" + lugar + '\'' +
                 ", origen='" + origen + '\'' +
                 ", consecuencias='" + consecuencias + '\'' +
                 '}';
+    }
+
+    /**
+     * Método principal.
+     */
+    public static void main(String[] args) {
+        // Implementación del método principal si es necesario
     }
 }
